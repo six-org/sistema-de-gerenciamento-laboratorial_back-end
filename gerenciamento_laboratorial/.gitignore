@@ -274,3 +274,5 @@ dump.rdb
 gerenciamento_laboratorial/media/
 
 .pytest_cache/
+
+.env
