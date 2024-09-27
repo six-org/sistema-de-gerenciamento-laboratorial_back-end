@@ -17,7 +17,7 @@ O *Gerenciamento Laboratorial* é um sistema de gerenciamento de laboratórios c
 
     ```bash
     git clone https://github.com/seu-usuario/gerenciamento_laboratorial.git
-    cd gerenciamento_laboratorial
+    cd sistema-de-gerenciamento-laboratorial_back-end/gerenciamento_laboratorial
     ```
 
 2. Crie um ambiente virtual e ative-o:
@@ -30,7 +30,7 @@ O *Gerenciamento Laboratorial* é um sistema de gerenciamento de laboratórios c
 3. Instale as dependências:
 
     ```bash
-    pip install -r requirements.txt
+    pip install -r requirements/base.txt
     ```
 
 4. Configure o banco de dados PostgreSQL:
