@@ -1,5 +1,15 @@
 import re
+from datetime import date
 from django.core.validators import ValidationError
+from dateutil.relativedelta import relativedelta
+
+
+def maior_de_idade_validator(value):
+    "Válida se o usuario é maior de idade"
+    idade = relativedelta(date.today(), value)
+    if idade.years >= 18:
+        return value
+    raise ValidationError('É necessário ser maior de idade')
 
 
 def valid_cpf_validator(value):
