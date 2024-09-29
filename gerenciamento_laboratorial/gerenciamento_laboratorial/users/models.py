@@ -21,22 +21,10 @@ class User(AbstractUser):
         _("Nível de Acesso"), max_length=50, blank=True)
     cpf = models.CharField(_("CPF"), max_length=11, blank=True, validators=[
                            MinLengthValidator(11), valid_cpf_validator])
+    data_nascimento = models.DateField(
+        _("Data de Nascimento"), blank=True, null=True,
+        validators=[maior_de_idade_validator])
 
     def get_absolute_url(self) -> str:
         """ Retorna a URL do detalhe do usuário. """
         return reverse("users:detail", kwargs={"username": self.username})
-
-
-class Funcionario(models.Model):
-    """ Modelo de Funcionário """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, verbose_name=_("usuário"))
-    data_nascimento = models.DateField(
-        _("Data de Nascimento"), blank=True, null=True,
-        validators=[maior_de_idade_validator])
-    cargo = models.CharField(_("Cargo"), max_length=50, blank=True)
-
-    def __str__(self):
-        """ Retorna uma string que representa o objeto """
-        return str(self.user.name)
