@@ -89,6 +89,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "gerenciamento_laboratorial.users",
     "gerenciamento_laboratorial.funcionario",
+    "gerenciamento_laboratorial.etiqueta",
     # Your stuff: custom apps go here
 ]
 
