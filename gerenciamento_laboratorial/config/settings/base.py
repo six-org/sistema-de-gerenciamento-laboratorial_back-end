@@ -46,6 +46,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
@@ -69,7 +70,7 @@ DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.sites",
+    # "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
@@ -87,6 +88,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "gerenciamento_laboratorial.users",
+    "gerenciamento_laboratorial.funcionario",
     # Your stuff: custom apps go here
 ]
 
