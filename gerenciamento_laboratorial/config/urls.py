@@ -25,6 +25,7 @@ urlpatterns = [
     # User management
     path("users/", include("gerenciamento_laboratorial.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("api/", include("config.api_router")),
     # Your stuff: custom urls includes go here
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger-ui/',
