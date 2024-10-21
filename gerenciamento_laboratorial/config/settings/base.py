@@ -46,6 +46,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
@@ -69,7 +70,7 @@ DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.sites",
+    # "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
@@ -83,12 +84,35 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.mfa",
     "allauth.socialaccount",
+    "drf_spectacular",
 ]
 
 LOCAL_APPS = [
     "gerenciamento_laboratorial.users",
+    "gerenciamento_laboratorial.funcionario",
+    "gerenciamento_laboratorial.etiqueta",
     # Your stuff: custom apps go here
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # Outras classes de autenticação (se houver)...
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Importar timedelta para configuração de expiração de tokens
+from datetime import timedelta
+
+# Configurações do JWT
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -283,3 +307,10 @@ SOCIALACCOUNT_FORMS = {"signup": "gerenciamento_laboratorial.users.forms.UserSoc
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Sistema de Gerenciamento Laboratorial API',
+    'DESCRIPTION': 'O Sistema de Gerenciamento Laboratorial proposto será uma aplicação web projetada para suportar e otimizar as operações diárias de um laboratório clínico. Entre as principais funcionalidades, o sistema permitirá a gestão de pacientes, controle de acesso de funcionários (com níveis de permissão diferenciados), agendamento de exames, gerenciamento de serviços e insumos, além de etiquetagem e controle financeiro completo. A plataforma será desenvolvida com foco na usabilidade, garantindo que os usuários possam navegar e realizar suas tarefas de forma eficiente e segura. Ao centralizar todas as operações laboratoriais em uma única interface, o sistema buscará aumentar a produtividade e a qualidade dos serviços prestados pelo laboratório.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}

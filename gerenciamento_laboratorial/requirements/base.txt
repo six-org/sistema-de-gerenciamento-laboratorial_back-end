@@ -12,6 +12,13 @@ django-allauth[mfa]==64.2.1  # https://github.com/pennersr/django-allauth
 django-crispy-forms==2.3  # https://github.com/django-crispy-forms/django-crispy-forms
 crispy-bootstrap5==2024.2  # https://github.com/django-crispy-forms/crispy-bootstrap5
 django-redis==5.4.0  # https://github.com/jazzband/django-redis
-django-debug-toolbar
-django-extensions
-psycopg2-binary
+# django-debug-toolbar==3.5.0  # Versão do Django Debug Toolbar
+django-extensions==3.2.3  # Extensões úteis para Django
+psycopg2-binary==2.9.7  # Driver PostgreSQL
+
+# Autenticação JWT
+djangorestframework-simplejwt==5.2.2  # Autenticação JWT para Django Rest Framework
+djangorestframework==3.14.0  # Django REST Framework para APIs
+
+# swagger
+drf-spectacular==0.27.2
