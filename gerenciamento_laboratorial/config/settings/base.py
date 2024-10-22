@@ -93,6 +93,7 @@ LOCAL_APPS = [
     "gerenciamento_laboratorial.funcionario",
     "gerenciamento_laboratorial.etiqueta",
     "gerenciamento_laboratorial.paciente",
+    "gerenciamento_laboratorial.exame",
     # Your stuff: custom apps go here
 ]
 
