@@ -91,6 +91,7 @@ LOCAL_APPS = [
     "gerenciamento_laboratorial.users",
     "gerenciamento_laboratorial.funcionario",
     "gerenciamento_laboratorial.etiqueta",
+    "gerenciamento_laboratorial.insumo",
     # Your stuff: custom apps go here
 ]
 
