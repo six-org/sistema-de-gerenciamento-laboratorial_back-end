@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from .validators import cargo_regex_validator
 
 User = get_user_model()
 
@@ -13,7 +14,8 @@ class Funcionario(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, verbose_name=_("usuário"))
-    cargo = models.CharField(_("Cargo"), max_length=50, blank=True)
+    cargo = models.CharField(_("Cargo"), max_length=50,
+                             blank=True, validators=[cargo_regex_validator])
 
     def __str__(self):
         """ Retorna uma string que representa o objeto """

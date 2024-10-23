@@ -1,6 +1,7 @@
 # ruff: noqa: ERA001, E501
 """Base settings to build other settings files upon."""
 
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -91,6 +92,8 @@ LOCAL_APPS = [
     "gerenciamento_laboratorial.users",
     "gerenciamento_laboratorial.funcionario",
     "gerenciamento_laboratorial.etiqueta",
+    "gerenciamento_laboratorial.paciente",
+    "gerenciamento_laboratorial.exame",
     # Your stuff: custom apps go here
 ]
 
@@ -103,7 +106,6 @@ REST_FRAMEWORK = {
 }
 
 # Importar timedelta para configuração de expiração de tokens
-from datetime import timedelta
 
 # Configurações do JWT
 SIMPLE_JWT = {
@@ -119,7 +121,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "gerenciamento_laboratorial.contrib.sites.migrations"}
+MIGRATION_MODULES = {
+    "sites": "gerenciamento_laboratorial.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -255,12 +258,14 @@ EMAIL_TIMEOUT = 5
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Pedro Pessoa, Tiago Amaro, Lidiana Costa, Lucas Mairon""", "placeholder@email.com")]
+ADMINS = [("""Pedro Pessoa, Tiago Amaro, Lidiana Costa, Lucas Mairon""",
+           "placeholder@email.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 # https://cookiecutter-django.readthedocs.io/en/latest/settings.html#other-environment-settings
 # Force the `admin` sign in process to go through the `django-allauth` workflow
-DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=False)
+DJANGO_ADMIN_FORCE_ALLAUTH = env.bool(
+    "DJANGO_ADMIN_FORCE_ALLAUTH", default=False)
 
 # LOGGING
 # ------------------------------------------------------------------------------
@@ -288,7 +293,8 @@ LOGGING = {
 
 # django-allauth
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+ACCOUNT_ALLOW_REGISTRATION = env.bool(
+    "DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 # https://docs.allauth.org/en/latest/account/configuration.html
@@ -298,11 +304,13 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "gerenciamento_laboratorial.users.adapters.AccountAdapter"
 # https://docs.allauth.org/en/latest/account/forms.html
-ACCOUNT_FORMS = {"signup": "gerenciamento_laboratorial.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {
+    "signup": "gerenciamento_laboratorial.users.forms.UserSignupForm"}
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_ADAPTER = "gerenciamento_laboratorial.users.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_FORMS = {"signup": "gerenciamento_laboratorial.users.forms.UserSocialSignupForm"}
+SOCIALACCOUNT_FORMS = {
+    "signup": "gerenciamento_laboratorial.users.forms.UserSocialSignupForm"}
 
 
 # Your stuff...
