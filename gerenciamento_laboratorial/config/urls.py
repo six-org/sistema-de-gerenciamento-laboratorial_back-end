@@ -2,16 +2,11 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include
-from django.urls import path
+from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
-
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView
-)
+from .api_router import api_router
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -25,21 +20,22 @@ urlpatterns = [
     # User management
     path("users/", include("gerenciamento_laboratorial.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    path("api/", include("config.api_router")),
-    # Your stuff: custom urls includes go here
+    # Incluindo as rotas da API registradas no api_router
+    path("api/", include(api_router.urls)),
+    
+    # DRF Spectacular URLs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/schema/swagger-ui/',
+    path('api/schema/swagger-ui/', 
          SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/',
          SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 
-
 if settings.DEBUG:
-    # This allows the error pages to be debugged during development, just visit
-    # these url in browser to see how these error pages look like.
+    # This allows the error pages to be debugged during development
     urlpatterns += [
         path(
             "400/",
@@ -58,8 +54,9 @@ if settings.DEBUG:
         ),
         path("500/", default_views.server_error),
     ]
+
+    # Debug toolbar URLs
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
-
-        urlpatterns = [
-            path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+        urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+    
