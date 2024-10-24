@@ -8,7 +8,7 @@ class EtiquetaModelViewSet(viewsets.ModelViewSet):
     serializer_class = EtiquetaSerializer
 
     def get_permissions(self):
-        permissions = [IsAuthenticated]
-        if self.action not in ['retrieve']:
-            permissions = [IsAuthenticated, IsAdminUser]
-        return [permission() for permission in permissions]
+        if self.action == 'retrieve':
+            return [IsAuthenticated()]
+        else:
+            return [IsAuthenticated(), IsAdminUser()]
