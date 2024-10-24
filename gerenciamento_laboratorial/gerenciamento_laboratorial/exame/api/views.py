@@ -21,40 +21,42 @@ class ExameViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         permissions = [IsAuthenticated, IsOwnerExameOrIsStaff]
-        if self.action in ['update', 'partial_update']:
+        if self.action in ['update', 'partial_update', 'create', 'destroy']:
             permissions = [IsAdminUser]
         return [permission() for permission in permissions]
 
     def list(self, request):
         if not request.user.is_staff:
-            return self.queryset.filter(paciente=request.user.paciente,
-                                        status=AGENDADO_STATUS)
-        return super().list(request)
+            queryset = self.queryset.filter(paciente=request.user.paciente)
+        else:
+            queryset = self.queryset
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def create(self, request):
+        if not request.user.is_staff:
+            return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        if request.user.is_staff:
-            data['status'] = AGENDADO_STATUS
         exame = Exame.objects.create(**data)
-        return Response(self.get_serializer(exame).data,
-                        status=status.HTTP_201_CREATED)
+        return Response(self.get_serializer(exame).data, status=status.HTTP_201_CREATED)
 
     def destroy(self, request, pk=None):
         if not request.user.is_staff:
-            exame = self.get_object()
-            exame.status = CANCELAMENTO_STATUS
-            exame.save()
-            return Response(
-                data={'detail': 'Solicitação de cancelamento realizada'},
-                status=status.HTTP_200_OK)
-        return super().destroy(request, pk)
+            return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+        exame = self.get_object()
+        exame.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=False, methods=['get'], permission_classes=[IsAdminUser])
     def list_agendamentos(self, request):
-        return self.queryset.filter(status=AGENDAMENTO_STATUS)
+        agendamentos = self.queryset.filter(status=AGENDAMENTO_STATUS)
+        serializer = self.get_serializer(agendamentos, many=True)
+        return Response(serializer.data)
 
     @action(detail=False, methods=['get'], permission_classes=[IsAdminUser])
     def list_cancelamentos(self, request):
-        return self.queryset.filter(status=CANCELAMENTO_STATUS)
+        cancelamentos = self.queryset.filter(status=CANCELAMENTO_STATUS)
+        serializer = self.get_serializer(cancelamentos, many=True)
+        return Response(serializer.data)
