@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Paciente
+from gerenciamento_laboratorial.paciente.models import Paciente
 
 class PacienteSerializer(serializers.ModelSerializer):
     class Meta:
