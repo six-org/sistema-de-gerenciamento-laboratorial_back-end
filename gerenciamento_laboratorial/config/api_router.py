@@ -7,7 +7,7 @@ from gerenciamento_laboratorial.etiqueta.api.views import EtiquetaModelViewSet
 router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
 # router.register("users", UserViewSet, basename="users")
-router.register("etiqueta/", EtiquetaModelViewSet, basename="etiqueta")
+router.register("etiqueta", EtiquetaModelViewSet, basename="etiqueta")
 
 app_name = "api"
 urlpatterns = router.urls
