@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
-class FuncionarioConfig(AppConfig):
+
+class InsumoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'gerenciamento_laboratorial.funcionario'
+    name = 'gerenciamento_laboratorial.insumo'

@@ -276,3 +276,19 @@ gerenciamento_laboratorial/media/
 .pytest_cache/
 
 .env
+
+# Arquivos Python cacheados
+__pycache__/
+*.py[cod]
+
+# Virtualenvs
+venv/
+env/
+
+# Arquivos de configuração do VSCode
+.vscode/
+
+# Outros arquivos
+*.log
+*.sqlite3
+*.DS_Store
