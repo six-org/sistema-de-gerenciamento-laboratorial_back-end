@@ -6,4 +6,4 @@ class AtendimentoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Atendimento
-        fields = ("horario_atendimento", "limite_fichas")
+        fields = ("id", "horario_atendimento", "limite_fichas")

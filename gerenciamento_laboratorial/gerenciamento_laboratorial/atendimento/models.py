@@ -1,7 +1,9 @@
+import uuid
 from django.db import models
 
 
 class Atendimento(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     horario_atendimento = models.DateTimeField(
         verbose_name="Horário do atendimento")
     limite_fichas = models.PositiveIntegerField(
